@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SignUpController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="600.0" prefWidth="1300.0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/red-sparkle-clare-bambers.jpg" />
+               </image>
+            </ImageView>
+            <JFXTextField fx:id="username" focusColor="#dadada" labelFloat="true" layoutX="753.0" layoutY="114.0" prefHeight="25.0" prefWidth="463.0" promptText="USER NAME" style="-fx-text-fill: #dadada; -fx-prompt-text-fill: #bcbaba;" unFocusColor="#bcbaba" />
+            <JFXTextField fx:id="contanctNo" focusColor="#dadada" labelFloat="true" layoutX="753.0" layoutY="167.0" prefHeight="25.0" prefWidth="463.0" promptText="MOBILE NUMBER" style="-fx-text-fill: #dadada; -fx-prompt-text-fill: #bcbaba;" unFocusColor="#bcbaba" />
+            <JFXComboBox fx:id="areaComboBox2" focusColor="#404040" layoutX="753.0" layoutY="220.0" prefHeight="25.0" prefWidth="213.0" promptText="   AREA" style="-fx-background-color: #dadada; -fx-prompt-text-fill: #464646; -fx-background-radius: 12px;" unFocusColor="#bab8b800" />
+            <JFXButton fx:id="signIn" layoutX="1216.0" layoutY="14.0" onAction="#SignIn" style="-fx-background-color: #e00000; -fx-background-radius: 15px;" text="SIGN IN" textFill="#dadada">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXComboBox fx:id="comboBox" focusColor="#dadada" labelFloat="true" layoutX="1003.0" layoutY="220.0" prefHeight="25.0" prefWidth="213.0" promptText="   GENDER" style="-fx-background-color: #dadada; -fx-prompt-text-fill: #464646; -fx-background-radius: 12px;" unFocusColor="#bab8b800" />
+            <JFXComboBox fx:id="bloodComboBox1" focusColor="#dadada" labelFloat="true" layoutX="1065.0" layoutY="275.0" prefHeight="25.0" prefWidth="151.0" promptText="   BLOOD GROUP" style="-fx-background-color: #dadada; -fx-prompt-text-fill: #464646; -fx-background-radius: 12px;" unFocusColor="#bab8b800" />
+            <Text fill="#bcbaba" fontSmoothingType="LCD" layoutX="753.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE OF BIRTH :">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <JFXPasswordField fx:id="userPassword" focusColor="#dadada" labelFloat="true" layoutX="752.0" layoutY="343.0" prefHeight="25.0" prefWidth="463.0" promptText="PASSWORD" style="-fx-text-fill: #dadada; -fx-prompt-text-fill: #bcbaba;" unFocusColor="#bcbaba">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton fx:id="signUp" layoutX="919.0" layoutY="483.0" onAction="#Signup" prefHeight="39.0" prefWidth="131.0" style="-fx-background-color: #e00000; -fx-background-radius: 20px;" text="SIGN UP" textFill="#dadada">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXButton>
+            <Text fill="#ffe9e9" layoutX="217.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="235.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP TO START THE GOOD WORK :)" textAlignment="CENTER" wrappingWidth="150.734375">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="datePicker" layoutX="862.0" layoutY="275.0" style="-fx-background-color: black;" />
+            <Label fx:id="errorLabel" layoutX="744.0" layoutY="416.0" prefHeight="25.0" prefWidth="422.0" textFill="RED" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>
