@@ -1,0 +1,240 @@
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100%; background-color: #666970; }
+</style>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-bDyrNGw5IX1ZggiNV9EqdHJKPstv56Q&callback=initMape">
+    </script>
+<!--    <script type="text/javascript">
+  function initialize() {
+    var latlng = new google.maps.LatLng(37.39822, -121.9643936);
+    var myOptions = {
+      zoom: 14,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      navigationControl: false,
+      streetViewControl: false,
+      backgroundColor: "#666970"
+    };
+
+    document.geocoder = new google.maps.Geocoder();
+    document.map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+
+    document.zoomIn = function zoomIn() {
+        var zoomLevel = document.map.getZoom();
+        if (zoomLevel <= 20) document.map.setZoom(zoomLevel + 1);
+    }
+
+    document.zoomOut = function zoomOut() {
+        var zoomLevel = document.map.getZoom();
+        if (zoomLevel > 0) document.map.setZoom(zoomLevel - 1);
+    }
+
+    document.setMapTypeRoad = function setMapTypeRoad() {
+        document.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    }
+    document.setMapTypeSatellite = function setMapTypeSatellite() {
+        document.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+    }
+    document.setMapTypeHybrid = function setMapTypeHybrid() {
+        document.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+    }
+    document.setMapTypeTerrain = function setMapTypeTerrain() {
+        document.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+    }
+
+    document.goToLocation = function goToLocation(searchString) {
+        document.geocoder.geocode( {'address': searchString}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            document.map.setCenter(results[0].geometry.location);
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+    }
+  }
+</script>-->
+
+    <script type="text/javascript">
+    // function getlatlong()
+    // {
+    //         var geocoder = new google.maps.Geocoder();
+    //         var address = $('#addr').val();
+    //         alert(address);
+    //         geocoder.geocode( { 'address': address}, function(results, status) {
+    //
+    //         if (status == google.maps.GeocoderStatus.OK) {
+    //             var latitude1 = results[0].geometry.location.lat();
+    //             var longitude1 = results[0].geometry.location.lng();
+    //             alert(latitude1+" "+longitude1);
+    //         }
+    //     });
+    // }
+
+    function getlatitude() {
+        var map = new google.maps.Map(document.getElementById("mapCanvas"), {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 3,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            panControl: false,
+            streetViewControl: false,
+            mapTypeControl: false
+        });
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+                address: "nikunja-2",
+                region: 'no'
+            },
+            function(results, status) {
+                if (status.toLowerCase() == 'ok') {
+                    // Get center
+                    var coords = new google.maps.LatLng(
+                        results[0]['geometry']['location'].lat(),
+                        results[0]['geometry']['location'].lng()
+                    );
+                    $('#lat').val(coords.lat());
+                    $('#long').val(coords.lng());
+                    var latLng = new google.maps.LatLng(23.8270916, 90.3545379);
+                    map.setCenter(latLng);
+                    map.setZoom(18);
+
+                    // Set marker also
+                    marker = new google.maps.Marker({
+                        position: coords,
+                        map: map,
+                        title: "nikunja-2",
+                        draggable: true
+                    });
+                    updateMarkerPosition(latLng);
+
+                    geocodePositionNotUpdate(latLng);
+
+                    // Add dragging event listeners.
+                    google.maps.event.addListener(marker, 'dragstart', function() {
+                        updateMarkerAddressNotActual('Dragging...');
+                    });
+
+                    google.maps.event.addListener(marker, 'drag', function() {
+                        updateMarkerStatus('Dragging...');
+                        updateMarkerPosition(marker.getPosition());
+                    });
+
+                    google.maps.event.addListener(marker, 'dragend', function() {
+                        updateMarkerStatus('Drag ended');
+                        // geocodePosition(marker.getPosition());
+                        geocodePositionNotUpdate(marker.getPosition());
+                    });
+
+                }
+            }
+        );
+    }
+
+    var geocoder = new google.maps.Geocoder();
+
+    function geocodePosition(pos) {
+        geocoder.geocode({
+            latLng: pos
+        }, function(responses) {
+            if (responses && responses.length > 0) {
+                updateMarkerAddress(responses[0].formatted_address);
+            } else {
+                updateMarkerAddress('Cannot determine address at this location.');
+            }
+        });
+    }
+    function geocodePositionNotUpdate(pos) {
+        geocoder.geocode({
+            latLng: pos
+        }, function(responses) {
+            if (responses && responses.length > 0) {
+                updateMarkerAddressNotActual(responses[0].formatted_address);
+
+            } else {
+                updateMarkerAddressNotActual('Cannot determine address at this location.');
+            }
+        });
+    }
+
+    function updateMarkerStatus(str) {
+        document.getElementById('markerStatus').innerHTML = str;
+    }
+
+    function updateMarkerPosition(latLng) {
+        document.getElementById('info').value = [
+            latLng.lat(),
+            latLng.lng()
+        ].join(', ');
+        document.getElementById('lat').value = latLng.lat();
+        document.getElementById('long').value = latLng.lng();
+    }
+
+    function updateMarkerAddress(str) {
+        document.getElementById('address').innerHTML = str;
+        document.getElementById('addr').value = str;
+    }
+    function updateMarkerAddressNotActual(str) {
+        document.getElementById('address').innerHTML = str;
+        document.getElementById('addr_updated').value = str;
+    }
+
+    function initialize() {
+
+        var addr = "nikunja-2";
+        var lat = 23.8270916;
+        var long = 90.3545379;
+
+        geocoder.geocode({
+            'address': addr
+        }, function(results, status) {
+            var latLng = new google.maps.LatLng(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+            var latLng = new google.maps.LatLng(lat, long);
+            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+                zoom: 15,
+                center: latLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: 'Point A',
+                map: map,
+                draggable: true
+            });;
+            // Update current position info.
+            updateMarkerPosition(latLng);
+
+            geocodePosition(latLng);
+
+            // Add dragging event listeners.
+            google.maps.event.addListener(marker, 'dragstart', function() {
+                updateMarkerAddress('Dragging...');
+            });
+
+            google.maps.event.addListener(marker, 'drag', function() {
+                updateMarkerStatus('Dragging...');
+                updateMarkerPosition(marker.getPosition());
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function() {
+                updateMarkerStatus('Drag ended');
+                // geocodePosition(marker.getPosition());
+                geocodePositionNotUpdate(marker.getPosition());
+            });
+            //updateMarkerPosition(latLng);
+        });
+
+    }
+
+    // Onload handler to fire off the app.
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+</head>
+<body onload="initialize()">
+<div id="mapCanvas" style="width:100%; height:100%"></div>
+</body>
+</html>
